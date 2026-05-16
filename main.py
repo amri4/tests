@@ -13,7 +13,7 @@ intents.members = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-@bot.event()
+@bot.event
 async def on_ready():
     print(f"Bot online as {bot.user}")
 
