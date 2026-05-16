@@ -10,4 +10,4 @@ async def hi(self, ctx):
   await ctx.send("hello")
 
 async def setup(bot):
-  await bot.add_cog(Utilities())
+  await bot.add_cog(Utilities(bot))
