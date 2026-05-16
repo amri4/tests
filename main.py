@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import asyncio
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
