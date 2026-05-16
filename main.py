@@ -3,6 +3,9 @@ from discord.ext import commands
 import asyncio
 from dotenv import load_dotenv
 
+load_dotenv()
+TOKEN = os.getenv("DISCORD_TOKEN")
+
 intents = discord.Intents.default()
 intents.message_conntent=True
 
@@ -12,5 +15,3 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 async def on_ready():
     print(f"Bot online as {bot.user}")
 
-load_dotenv()
-TOKEN = os.getenv("DISCORD_TOKEN")
