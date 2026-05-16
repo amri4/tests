@@ -12,4 +12,5 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 async def on_ready():
     print(f"Bot online as {bot.user}")
 
-load_d
+load_dotenv()
+TOKEN = os.getenv("DISCORD_TOKEN")
