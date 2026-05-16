@@ -1,2 +1,2 @@
 # tests
-For testing and learning discord.py features 
+this repository is for testing discord and discord.py feature for learning purposes
