@@ -11,7 +11,7 @@ character TEXT
 """)
 conn.commit()
 
-characters = [
+characters = {
     "luffy": "Monkey D.Luffy",
     "zoro": "Roronoa Zoro",
     "nami": "Nami",
@@ -32,7 +32,7 @@ characters = [
     "edward newgate": "Whitebeard",
     "kaido": "Kaido",
     "charlote linlin": "Big Mom"
-]
+}
 
 def character_exists(character):
     return character in characters
