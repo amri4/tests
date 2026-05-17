@@ -40,3 +40,21 @@ def random_character():
 
 def all_characters():
     return characters
+
+def get_character(user_id):
+    cursor.execute("""
+    SELECT character FROM character
+    WHERE user_id = ?
+    """,(user_id,))
+    data = cursor.fetchone()
+    if data:
+        return data[0]
+
+    return None
+
+def give_character(user_id, character):
+    cursor.execute("""
+    INSERT OR REPLACE INTO character (user_id, character)
+    VALUES (?, ?)
+    """, (user_id, character))
+    conn.commit()
