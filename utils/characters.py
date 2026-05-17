@@ -1,4 +1,3 @@
-import random
 import sqlite3
 
 conn = sqlite3.connect("characters_db")
@@ -35,8 +34,8 @@ characters = [
     "charlote linlin": "Big Mom"
 ]
 
-def random_character():
-    return random.choice(characters)
+def character_exists(character):
+    return character in characters
 
 def all_characters():
     return characters
@@ -57,4 +56,21 @@ def give_character(user_id, character):
     INSERT OR REPLACE INTO character (user_id, character)
     VALUES (?, ?)
     """, (user_id, character))
+    conn.commit()
+
+def is_claimed(character):
+    cursor.execute("""
+    SELECT * FROM character
+    WHERE character = ?
+    """, (character,))
+
+    data = cursor.fetchone()
+
+    return data is not None
+
+def remove_character(character):
+    cursor.execute("""
+    DELETE FROM character
+    WHERE user_id = ?
+    """, (user_id,))
     conn.commit()
