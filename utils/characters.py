@@ -13,26 +13,26 @@ character TEXT
 conn.commit()
 
 characters = [
-    "Monkey D. Luffy",
-    "Roronoa Zoro",
-    "Nami",
-    "Usopp",
-    "Sanji",
-    "Tony Tony Chopper",
-    "Nico Robin",
-    "Franky",
-    "Brook",
-    "Jinbe",
-    "Shanks",
-    "Portgas D. Ace",
-    "Trafalgar Law",
-    "Boa Hancock",
-    "Sabo",
-    "Dracule Mihawk",
-    "Gol D. Roger",
-    "Whitebeard",
-    "Kaido",
-    "Big Mom"
+    "luffy": "Monkey D.Luffy",
+    "zoro": "Roronoa Zoro",
+    "nami": "Nami",
+    "usopp": "Usopp",
+    "sanji": "Vinsmoke Sanji",
+    "chopper": "Tony Tony Chopper",
+    "robin": "Nico Robin",
+    "franky": "Franky",
+    "brook": "Brook",
+    "jinbe": "Jinbe",
+    "shanks": "Shanks",
+    "ace": "Portgas D. Ace",
+    "law": "Trafalgar Law",
+    "boa": "Boa Hancock",
+    "sabo": "Sabo",
+    "mihawk": "Dracule Mihawk",
+    "roger": "Gol D. Roger",
+    "edward newgate": "Whitebeard",
+    "kaido": "Kaido",
+    "charlote linlin": "Big Mom"
 ]
 
 def random_character():
