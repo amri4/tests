@@ -7,19 +7,19 @@ class Characters(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def claim(self, ctx):
+    async def claim(self, ctx, character):
         claimed = characters.get_character(ctx.author.id)
         if claimed:
             await ctx.reply(f"⚠️ You already claimed **{claimed}**")
             return
 
-        if character not in characters.character:
+        if character not in characters.characters:
             await ctx.reply("❌️ Character doesn’t exist")
             return
 
         full_name = characters.characters[character]
 
-        if character.is_claimed(full_name):
+        if characters.is_claimed(full_name):
             await ctx.reply("💀 This character is already claimed")
             return
 
