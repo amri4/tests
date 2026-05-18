@@ -1,23 +1,68 @@
 import discord
 from discord.ext import commands
-import sqlite3
+from utils import db
+
+db.create_table(
+    "bounty",
+    """
+    user_id INTEGER PRIMARY KEY,
+    bounty INTEGER
+    """
+)
 
 class Bounty(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        self.conn = sqlite3.connect("data/bounty_db")
-        self.cursor = self.conn.cursor()
+	@commands.Cog.listener()
+	async def on_message(self, message):
+		if message.author.bot:
+			return
 
-    def add_bounty(user_id):
-        self.cursor.execute("""
-        INSERT OR REPLACE INTO bounty
-        VALUES (?, ?)
+        exists = db.exixts(
+		    "bounty",
+		    "user_id = ?",
+		    (message.author.id,)
+		)
 
-        self.cursor.execute("""
-        CREATE TABLE IF NOT EXISTS bounty (
-        user_id INTEGER PRIMARY KEY,
-        bounty INTEGER
+		if not exists:
+			db.insert(
+				"bounty",
+				"user_id, bounty"
+				(message.author.id, 0)
+			)
+
+        data = db.fetchone(
+		    "bounty",
+		    "user_id = ?",
+            (message.author.id,)
         )
-        """)
-        self.conn.commit()
+
+        current_bounty = data[1]
+
+        new_bounty = current_bounty + 5
+
+        db.update(
+            "bounty"
+            "bounty = ?",
+            "user_id = ?",
+            (new_bounty, message.author.id)
+        )
+
+    @commands.command()
+    async def bounty(self, ctx, member: discord.Member):
+        member = ctx.author or member
+        db.fetchone(
+            "bounty",
+            "user_id = ?",
+            (member.id,)
+        )
+        user_id, bounty = data
+        embed = discor.Embed(
+            title=f"🏴‍☠️ {member.mention}",
+            description=f"BOUNTY: **{bounty:,}**",
+            color=discord.Color.gold())
+        await ctx.send(embed=embed)
+
+async def setup(bot):
+    await bot.add_cog(Bounty(bot))
