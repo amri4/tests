@@ -101,7 +101,7 @@ class Bounty(commands.Cog):
     # =====================================
 
     @commands.command()
-    async def leaderboard(self, ctx):
+    async def bountylb(self, ctx):
 
         data = db.fetchall("bounty")
 
