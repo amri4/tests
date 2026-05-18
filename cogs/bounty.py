@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from utils import db
+import random
 
 # =========================================
 # DATABASE SETUP
@@ -55,7 +56,9 @@ class Bounty(commands.Cog):
 
         current_bounty = data[1]
 
-        new_bounty = current_bounty + 5
+        gain = random.randint(5, 20)
+
+        new_bounty = current_bounty + gain
 
         db.update(
             "bounty",
