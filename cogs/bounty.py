@@ -15,9 +15,33 @@ db.create_table(
     """
 )
 
-# =========================================
-# BOUNTY SYSTEM
-# =========================================
+    # =========================================
+    # BOUNTY SYSTEM
+    # =========================================
+
+    def get_milestone(bounty):
+
+    if bounty >= 10000:
+        return "👑 Emperor Candidate"
+
+    elif bounty >= 5000:
+        return "☠️ Notorious Pirate"
+
+    elif bounty >= 1000:
+        return "🔴 Dangerous Pirate"
+
+    elif bounty >= 500:
+        return "🟠 Rising Threat"
+
+    elif bounty >= 100:
+        return "🟡 Rookie Pirate"
+
+    else:
+        return "🟤 Unknown Pirate"
+
+# ============================================
+# CREATE BOUNTY COG
+# ============================================
 
 class Bounty(commands.Cog):
 
@@ -87,10 +111,11 @@ class Bounty(commands.Cog):
             return
 
         user_id, bounty = data
+        milestone = get_milestone(bounty)
 
         embed = discord.Embed(
             title=f"🏴‍☠️ {member.mention}",
-            description=f"💰 Bounty: **{bounty:,}**<:berries:1505947765346406460>",
+            description=f"💰 Bounty: **{bounty:,}**<:berries:1505947765346406460>\n **{milestone}**",
             color=discord.Color.gold()
         )
 
