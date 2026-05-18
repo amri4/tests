@@ -126,7 +126,7 @@ class Bounty(commands.Cog):
             if member:
                 text += (
                     f"**{index}.** "
-                    f"{member.name} — "
+                    f"{member.mention} — "
                     f"💰 {bounty:,}\n"
                 )
 
