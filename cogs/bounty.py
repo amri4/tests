@@ -115,7 +115,7 @@ class Bounty(commands.Cog):
 
         embed = discord.Embed(
             title=f"🏴‍☠️ {member.mention}",
-            description=f"💰 Bounty: **{bounty:,}**<:berries:1505947765346406460>\n **{milestone}**",
+            description=f"💰 Bounty: **{bounty:,}**<:berries:1505947765346406460>\n\n **{milestone}**",
             color=discord.Color.gold()
         )
 
