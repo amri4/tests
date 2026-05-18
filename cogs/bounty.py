@@ -19,7 +19,7 @@ db.create_table(
     # BOUNTY SYSTEM
     # =========================================
 
-    def get_milestone(bounty):
+def get_milestone(bounty):
 
     if bounty >= 10000:
         return "👑 Emperor Candidate"
