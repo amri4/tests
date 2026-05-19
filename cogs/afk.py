@@ -19,7 +19,7 @@ class AFK(commands.Cog):
 
         if message.author.bot:
             return
-        if message.content.startswith("!afk"):
+        if not message.content.startswith("!afk"):
 
             data = db.fetchone(
                 "afk",
