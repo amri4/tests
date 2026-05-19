@@ -45,7 +45,7 @@ class AFK(commands.Cog):
     async def afk(self, ctx, *, reason="AFK"):
         db.insert(
             "afk",
-            "user_id, reason"
+            "user_id, reason",
             (ctx.author.id, reason))
         await ctx.send(f"You are now afk\n\nREASON: {reason}")
 
