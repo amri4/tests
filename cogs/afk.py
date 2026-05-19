@@ -19,24 +19,23 @@ class AFK(commands.Cog):
 
         if message.author.bot:
             return
-        if not message.content.startswith("!afk"):
-
-            data = db.fetchone(
+        
+        # Check if user is AFK and remove AFK status on any message
+        data = db.fetchone(
+            "afk",
+            "user_id = ?",
+            (message.author.id,))
+        
+        if data:
+            db.remove(
                 "afk",
                 "user_id = ?",
                 (message.author.id,))
-            
-            user = message.author
-            if data:
-                db.remove(
-                    "afk",
-                    "user_id = ?",
-                    (user.id,))
-                reason = data[1]
-                embed=discord.Embed(title="✅️ AFK Removed", 
-                                    description=f"{message.author.display_name} was afk {reason}", 
-                                    color=discord.Color.blue())
-                await message.channel.send(embed=embed)
+            reason = data[1]
+            embed=discord.Embed(title="✅️ AFK Removed", 
+                                description=f"{message.author.display_name} was afk {reason}", 
+                                color=discord.Color.blue())
+            await message.channel.send(embed=embed)
 
         await self.bot.process_commands(message)
 
