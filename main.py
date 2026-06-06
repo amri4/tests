@@ -3,7 +3,6 @@ from discord.ext import commands
 import asyncio
 from dotenv import load_dotenv
 import os
-from mycord import Bot
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
@@ -18,7 +17,11 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 async def on_ready():
     print(f"Bot online as {bot.user}")
 
-bot.load_cogs("cogs")
+async def load_cogs():
+    for filename in os.listdir("./cogs"):
+        if filename.endswith(".py"):
+            await bot.load_extension(f"cogs.{filename[:-3]}")
+            print(f"✅️ {filename} Loaded")
 
 async def main():
     async with bot:
