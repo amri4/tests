@@ -4,5 +4,6 @@ from utils import db
 
 db.create_table(
     "crews",
-    "crew_id INTEGER PRIMARY KEY,
-    "crew_name TEXT
+    """
+    crew_id INTEGER PRIMARY KEY,
+    crew_name TEXT,
