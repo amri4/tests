@@ -1,17 +1,22 @@
 import sqlite3
 
-# =========================================
-# CONNECT
-# =========================================
+# We leave these uninitialized here so they don't lock onto a single file name immediately
+conn = None
+cursor = None
 
-conn = sqlite3.connect("database.db")
-cursor = conn.cursor()
+# =========================================
+# HELPER TO SWITCH DATABASE FILE DYNAMICALLY
+# =========================================
+def _connect_to(db_name):
+    global conn, cursor
+    conn = sqlite3.connect(f"{db_name}.db")
+    cursor = conn.cursor()
 
 # =========================================
 # CREATE TABLE
 # =========================================
-
 def create_table(name, columns):
+    _connect_to(name)  # Automatically connects to "tablename.db"
 
     cursor.execute(f"""
     CREATE TABLE IF NOT EXISTS {name} (
@@ -20,12 +25,13 @@ def create_table(name, columns):
     """)
 
     conn.commit()
+    conn.close()
 
 # =========================================
 # INSERT
 # =========================================
-
 def insert(table, columns, values):
+    _connect_to(table)
 
     placeholders = ", ".join(
         ["?"] * len(values)
@@ -39,12 +45,13 @@ def insert(table, columns, values):
     """, values)
 
     conn.commit()
+    conn.close()
 
 # =========================================
 # INSERT OR REPLACE
 # =========================================
-
 def insert_replace(table, columns, values):
+    _connect_to(table)
 
     placeholders = ", ".join(
         ["?"] * len(values)
@@ -58,12 +65,13 @@ def insert_replace(table, columns, values):
     """, values)
 
     conn.commit()
+    conn.close()
 
 # =========================================
 # SELECT ONE
 # =========================================
-
 def fetchone(table, condition=None, values=()):
+    _connect_to(table)
 
     query = f"SELECT * FROM {table}"
 
@@ -71,26 +79,31 @@ def fetchone(table, condition=None, values=()):
         query += f" WHERE {condition}"
 
     cursor.execute(query, values)
-
-    return cursor.fetchone()
+    result = cursor.fetchone()
+    
+    conn.close()
+    return result
 
 # =========================================
 # SELECT ALL
 # =========================================
-
 def fetchall(table):
+    _connect_to(table)
 
     cursor.execute(f"""
     SELECT * FROM {table}
     """)
 
-    return cursor.fetchall()
+    result = cursor.fetchall()
+    
+    conn.close()
+    return result
 
 # =========================================
 # UPDATE
 # =========================================
-
 def update(table, set_values, condition, values):
+    _connect_to(table)
 
     cursor.execute(f"""
     UPDATE {table}
@@ -99,12 +112,13 @@ def update(table, set_values, condition, values):
     """, values)
 
     conn.commit()
+    conn.close()
 
 # =========================================
 # DELETE
 # =========================================
-
 def delete(table, condition, values):
+    _connect_to(table)
 
     cursor.execute(f"""
     DELETE FROM {table}
@@ -112,24 +126,27 @@ def delete(table, condition, values):
     """, values)
 
     conn.commit()
+    conn.close()
 
 # =========================================
 # EXISTS
 # =========================================
-
 def exists(table, condition, values):
+    _connect_to(table)
 
     cursor.execute(f"""
     SELECT * FROM {table}
     WHERE {condition}
     """, values)
 
-    return cursor.fetchone() is not None
+    result = cursor.fetchone() is not None
+    
+    conn.close()
+    return result
 
 # =========================================
 # CLOSE
 # =========================================
-
 def close():
-
-    conn.close()
+    if conn:
+        conn.close()
