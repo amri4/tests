@@ -2,8 +2,8 @@ name: Keep Bot Awake
 
 on:
   schedule:
-    # Runs every 10 minutes, 24/7
     - cron: '*/10 * * * *'
+  workflow_dispatch: # 👈 This adds a manual "Run workflow" button!
 
 jobs:
   ping:
