@@ -1,31 +1,11 @@
-import discord
-from discord.ext import commands
-import asyncio
-from dotenv import load_dotenv
-import os
+import mycord
 
-load_dotenv()
-TOKEN = os.getenv("DISCORD_TOKEN")
+bot = mycord.Bot(prefix="!")
 
-intents = discord.Intents.default()
-intents.message_content = True
-intents.members = True
+TOKEN = bot.get_env("DISCORD_TOKEN")
 
-bot = commands.Bot(command_prefix="!", intents=intents)
+@bot.events()
+    async def on_ready():
+        print(f"Bot online as {bot.name}")
 
-@bot.event
-async def on_ready():
-    print(f"Bot online as {bot.user}")
-
-async def load_cogs():
-    for filename in os.listdir("./cogs"):
-        if filename.endswith(".py"):
-            await bot.load_extension(f"cogs.{filename[:-3]}")
-            print(f"✅️ {filename} Loaded")
-
-async def main():
-    async with bot:
-        await load_cogs()
-        await bot.start(TOKEN)
-
-asyncio.run(main())
+bot.start(TOKEN)
