@@ -2,6 +2,7 @@ import os
 import asyncio
 import discord
 from discord.ext import commands
+from dotenv import load_dotenv
 
 intents = discord.Intents.default()
 intents.message_content = True  
@@ -30,6 +31,7 @@ async def main():
     await load_extensions()
     
     # Grab the token from the environment securely
+    load_dotenv()
     token = os.getenv("DISCORD_TOKEN")
     
     if not token:
