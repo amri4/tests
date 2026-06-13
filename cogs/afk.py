@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from utils import db
+import mycord
 
 db.create_table(
     "afk",
