@@ -9,7 +9,7 @@ cursor = None
 # =========================================
 def _connect_to(db_name):
     global conn, cursor
-    conn = sqlite3.connect(f"data/{db_name}.db")
+    conn = sqlite3.connect(f"{db_name}.db")
     cursor = conn.cursor()
 
 # =========================================
