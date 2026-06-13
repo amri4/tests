@@ -8,8 +8,6 @@ import mycord
 intents = discord.Intents.default()
 intents.message_content = True  
 
-db = DB()
-
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 async def load_extensions():
