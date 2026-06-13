@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 import mycord
 
+db = mycord.Bot()
+
 db.create_table(
     "afk",
     """
